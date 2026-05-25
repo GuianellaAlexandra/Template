@@ -1,0 +1,465 @@
+/* ==========================================================================
+   ENCUESTA INICIATIVAS DE MEJORA — GRUPO JOCKEY
+   Versión 3 pasos: Clasificación, Contexto, Detalle operativo
+   Marca corporativa: negro/gris dominantes, Inter Light,
+   gradiente de serotonina solo en línea decorativa.
+   ========================================================================== */
+
+:root {
+  --jp-black: #000000;
+  --jp-gray: #EDEBEC;
+  --jp-white: #FFFFFF;
+  --jp-text-muted: rgba(0, 0, 0, 0.6);
+  --jp-text-faint: rgba(0, 0, 0, 0.5);
+  --jp-border: rgba(0, 0, 0, 0.12);
+  --jp-border-strong: rgba(0, 0, 0, 0.25);
+  --jp-error: #FF0054;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--jp-gray);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 300;
+  color: var(--jp-black);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, p { margin: 0; font-weight: 300; }
+
+.jp-canvas {
+  background: var(--jp-gray);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== HEADER ===== */
+.jp-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 36px;
+  background: var(--jp-black);
+  color: var(--jp-gray);
+  min-height: 56px;
+}
+
+.jp-logo-img {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+.jp-meta {
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0.65;
+  text-transform: uppercase;
+}
+
+/* ===== TÍTULO ===== */
+.jp-title-bar {
+  padding: 32px 36px 24px;
+  background: var(--jp-white);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.jp-eyebrow {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--jp-black);
+  opacity: 0.55;
+  margin-bottom: 8px;
+}
+
+.jp-title {
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: -0.6px;
+  margin-bottom: 6px;
+}
+
+.jp-subtitle {
+  font-size: 14px;
+  color: var(--jp-text-muted);
+}
+
+/* ===== STEPPER ===== */
+.jp-stepper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--jp-white);
+}
+
+.jp-tab {
+  padding: 20px 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  border-top: 2px solid transparent;
+  transition: all 0.2s;
+  font-family: inherit;
+  position: relative;
+}
+
+.jp-tab:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 25%;
+  bottom: 25%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.jp-tab-num {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.45);
+  margin-bottom: 4px;
+  font-weight: 400;
+}
+
+.jp-tab-label {
+  display: block;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 300;
+}
+
+.jp-tab.active {
+  border-top-color: var(--jp-black);
+  background: var(--jp-gray);
+}
+
+.jp-tab.active .jp-tab-num { color: var(--jp-black); opacity: 1; }
+.jp-tab.active .jp-tab-label { color: var(--jp-black); }
+
+.jp-tab.done .jp-tab-num::before { content: '✓ '; }
+
+/* ===== ESCENARIO ===== */
+.jp-stage {
+  position: relative;
+  flex: 1;
+  background: var(--jp-gray);
+  padding: 40px 36px;
+  min-height: 460px;
+  overflow: hidden;
+}
+
+.jp-stage-line {
+  position: absolute;
+  top: -20px;
+  right: -40px;
+  width: 480px;
+  height: 480px;
+  pointer-events: none;
+  opacity: 0.85;
+  z-index: 0;
+}
+
+.jp-form {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+}
+
+.jp-section {
+  display: none;
+  animation: jpFade 0.35s ease;
+}
+
+.jp-section.active { display: block; }
+
+@keyframes jpFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== PREGUNTAS ===== */
+.jp-q { margin-bottom: 28px; }
+
+.jp-label {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  display: block;
+  color: var(--jp-black);
+}
+
+.jp-label-help {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.55);
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+/* ===== CARDS DE CLASIFICACIÓN ===== */
+.jp-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.jp-card {
+  background: var(--jp-white);
+  border: 1px solid var(--jp-border);
+  padding: 18px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  font-family: inherit;
+  font-weight: 300;
+  color: inherit;
+}
+
+.jp-card:hover { border-color: var(--jp-black); }
+
+.jp-card.selected {
+  background: var(--jp-black);
+  color: var(--jp-gray);
+  border-color: var(--jp-black);
+}
+
+.jp-card-icon {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 12px;
+  display: block;
+  opacity: 0.75;
+}
+
+.jp-card.selected .jp-card-icon { opacity: 1; }
+
+.jp-card-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.jp-card-desc {
+  display: block;
+  font-size: 12px;
+  opacity: 0.6;
+  line-height: 1.4;
+}
+
+.jp-card.selected .jp-card-desc { opacity: 0.75; }
+
+/* ===== INPUTS ===== */
+.jp-input, .jp-textarea, .jp-select {
+  width: 100%;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-border);
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--jp-black);
+  font-family: inherit;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.2s;
+  border-radius: 0;
+}
+
+.jp-input:focus, .jp-textarea:focus, .jp-select:focus {
+  border-color: var(--jp-black);
+}
+
+.jp-input.invalid, .jp-textarea.invalid, .jp-select.invalid {
+  border-color: var(--jp-error);
+}
+
+.jp-textarea {
+  min-height: 90px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.jp-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23000' stroke-width='1.5'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+/* ===== CHIPS ===== */
+.jp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.jp-chip {
+  background: var(--jp-white);
+  border: 1px solid var(--jp-border);
+  padding: 10px 16px;
+  font-size: 13px;
+  color: var(--jp-black);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  font-weight: 300;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 0;
+}
+
+.jp-chip:hover { border-color: var(--jp-black); }
+
+.jp-chip.selected {
+  background: var(--jp-black);
+  color: var(--jp-gray);
+  border-color: var(--jp-black);
+}
+
+.jp-chip-ico {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.jp-chip.selected .jp-chip-ico { opacity: 1; }
+
+/* ===== ROW ===== */
+.jp-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ===== NAVEGACIÓN ===== */
+.jp-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 36px;
+  background: var(--jp-white);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.jp-nav-right {
+  display: flex;
+  gap: 10px;
+}
+
+.jp-btn {
+  background: var(--jp-black);
+  color: var(--jp-gray);
+  border: none;
+  padding: 11px 22px;
+  font-size: 13px;
+  font-weight: 300;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+  border-radius: 0;
+}
+
+.jp-btn:hover { opacity: 0.85; }
+.jp-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+
+.jp-btn-ghost {
+  background: transparent;
+  color: var(--jp-black);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.jp-btn-ghost:hover {
+  background: rgba(0, 0, 0, 0.04);
+  opacity: 1;
+}
+
+/* ===== PANTALLAS FINALES ===== */
+.jp-done {
+  padding: 40px 0;
+}
+
+.jp-done-eyebrow {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 20px;
+}
+
+.jp-done-eyebrow.jp-error {
+  color: var(--jp-error);
+  opacity: 1;
+}
+
+.jp-done-title {
+  font-size: 44px;
+  line-height: 1.05;
+  letter-spacing: -1.2px;
+  margin-bottom: 16px;
+  max-width: 540px;
+}
+
+.jp-done-body {
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.7);
+  line-height: 1.6;
+  max-width: 480px;
+  margin-bottom: 32px;
+}
+
+.jp-code {
+  font-family: 'Courier New', monospace;
+  background: var(--jp-black);
+  color: var(--jp-gray);
+  padding: 3px 9px;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.jp-spinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-top-color: var(--jp-black);
+  border-radius: 50%;
+  animation: jpSpin 0.8s linear infinite;
+}
+
+@keyframes jpSpin { to { transform: rotate(360deg); } }
+
+/* ===== RESPONSIVE MÓVIL ===== */
+@media (max-width: 768px) {
+  .jp-topbar { padding: 12px 20px; }
+  .jp-logo-img { height: 18px; }
+  .jp-meta { display: none; }
+
+  .jp-title-bar { padding: 24px 20px 20px; }
+  .jp-title { font-size: 24px; }
+
+  .jp-stepper { grid-template-columns: 1fr; }
+  .jp-tab { padding: 14px 20px; display: none; }
+  .jp-tab.active { display: block; }
+  .jp-tab:not(:last-child)::after { display: none; }
+
+  .jp-stage { padding: 28px 20px; }
+  .jp-stage-line { width: 320px; height: 320px; opacity: 0.4; right: -80px; top: 0; }
+
+  .jp-cards { grid-template-columns: 1fr; }
+  .jp-row { grid-template-columns: 1fr; gap: 0; }
+
+  .jp-done-title { font-size: 30px; }
+
+  .jp-nav { padding: 14px 20px; gap: 10px; }
+  .jp-nav-right .jp-btn-ghost { display: none; }
+}
