@@ -1,3 +1,15 @@
+{% comment %}
+==========================================================================
+ENCUESTA DE INICIATIVAS DE MEJORA — GRUPO JOCKEY
+==========================================================================
+{% endcomment %}
+
+{% if user == null %}
+  <script>
+    window.location.href = "/SignIn?returnUrl=" + encodeURIComponent(window.location.pathname);
+  </script>
+{% else %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,8 +22,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="./03-encuesta-mejora.css">
+  <link rel="stylesheet" href="/03-encuesta-mejora.css">
 </head>
 
 <body>
@@ -19,16 +30,16 @@
   <main
     class="jp-canvas"
     id="jpCanvas"
-    data-user-name=""
-    data-user-email=""
-    data-api-endpoint=""
-    data-antiforgery-token=""
+    data-user-name="{{ user.fullname | escape }}"
+    data-user-email="{{ user.emailaddress1 | escape }}"
+    data-api-endpoint="/_api/jp_iniciativa_mejoras"
+    data-antiforgery-token="{{ antiforgerytoken }}"
   >
 
     <!-- HEADER -->
     <header class="jp-topbar">
       <img
-        src="./grupo-jockey-logo.png"
+        src="/grupo-jockey-logo.png"
         alt="Grupo Jockey"
         class="jp-logo-img"
       />
@@ -38,7 +49,7 @@
       </div>
     </header>
 
-    <!-- TITULO -->
+    <!-- TÍTULO -->
     <div class="jp-title-bar">
       <div class="jp-eyebrow">Registro</div>
 
@@ -47,12 +58,17 @@
       </h1>
 
       <p class="jp-subtitle">
-        Cuéntanos qué proceso quieres optimizar. Te toma ~5 minutos.
+        Cuéntanos qué proceso quieres optimizar.
+        Te toma ~5 minutos.
       </p>
     </div>
 
     <!-- STEPPER -->
-    <nav class="jp-stepper" role="tablist" aria-label="Pasos del formulario">
+    <nav
+      class="jp-stepper"
+      role="tablist"
+      aria-label="Pasos del formulario"
+    >
 
       <button
         type="button"
@@ -89,14 +105,22 @@
 
     </nav>
 
-    <!-- FORMULARIO -->
+    <!-- ESCENARIO -->
     <section class="jp-stage">
 
-      <!-- LINEA DECORATIVA -->
-      <svg class="jp-stage-line" viewBox="0 0 480 480" aria-hidden="true">
-
+      <svg
+        class="jp-stage-line"
+        viewBox="0 0 480 480"
+        aria-hidden="true"
+      >
         <defs>
-          <linearGradient id="jpGradFinal" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient
+            id="jpGradFinal"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
             <stop offset="0%" stop-color="#896EFF"/>
             <stop offset="40%" stop-color="#C559F5"/>
             <stop offset="70%" stop-color="#FFBDF0"/>
@@ -105,7 +129,8 @@
         </defs>
 
         <path
-          d="M 470 50 C 380 90, 280 30, 250 180
+          d="M 470 50
+             C 380 90, 280 30, 250 180
              S 320 320, 240 360
              C 170 390, 110 300, 180 220
              S 290 130, 420 270
@@ -115,7 +140,6 @@
           fill="none"
           stroke-linecap="round"
         />
-
       </svg>
 
       <form
@@ -134,7 +158,11 @@
               ¿Cómo clasificarías esta iniciativa?
             </label>
 
-            <div class="jp-cards" role="radiogroup">
+            <div
+              class="jp-cards"
+              role="radiogroup"
+              aria-label="Clasificación"
+            >
 
               <button
                 type="button"
@@ -207,7 +235,11 @@
               ¿Cuál es el alcance de este proceso o problemática?
             </label>
 
-            <div class="jp-chips">
+            <div
+              class="jp-chips"
+              role="radiogroup"
+              aria-label="Alcance"
+            >
 
               <button
                 type="button"
@@ -242,12 +274,154 @@
 
         </div>
 
+        <!-- PASO 2 -->
+        <div class="jp-section" data-section="2">
+
+          <div class="jp-q">
+
+            <label class="jp-label" for="fOportunidad">
+              Menciona la oportunidad de mejora
+            </label>
+
+            <input
+              type="text"
+              id="fOportunidad"
+              class="jp-input"
+              placeholder="En una frase, qué se podría mejorar"
+              maxlength="300"
+            />
+
+          </div>
+
+          <div class="jp-q">
+
+            <label class="jp-label" for="fProblematica">
+              Cuéntanos detalladamente la problemática que has identificado
+            </label>
+
+            <textarea
+              id="fProblematica"
+              class="jp-textarea"
+              placeholder="Ej. El proceso requiere 3 aprobadores distintos vía email."
+              maxlength="2000"
+            ></textarea>
+
+          </div>
+
+          <div class="jp-q">
+
+            <label class="jp-label">
+              Herramientas que se utilizan actualmente
+            </label>
+
+            <p class="jp-label-help">
+              Selecciona todas las que apliquen.
+            </p>
+
+            <div
+              class="jp-chips"
+              style="margin-top:10px;"
+              role="group"
+              aria-label="Herramientas utilizadas"
+            >
+
+              <button
+                type="button"
+                class="jp-chip"
+                data-multi="herramientas"
+                data-val="outlook"
+              >
+                Outlook
+              </button>
+
+              <button
+                type="button"
+                class="jp-chip"
+                data-multi="herramientas"
+                data-val="excel"
+              >
+                Excel
+              </button>
+
+              <button
+                type="button"
+                class="jp-chip"
+                data-multi="herramientas"
+                data-val="teams"
+              >
+                Teams
+              </button>
+
+              <button
+                type="button"
+                class="jp-chip"
+                data-multi="herramientas"
+                data-val="sap"
+              >
+                SAP
+              </button>
+
+              <button
+                type="button"
+                class="jp-chip"
+                data-multi="herramientas"
+                data-val="sharepoint"
+              >
+                SharePoint
+              </button>
+
+              <button
+                type="button"
+                class="jp-chip"
+                data-multi="herramientas"
+                data-val="papel"
+              >
+                Papel/Físico
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- PASO 3 -->
+        <div class="jp-section" data-section="3">
+
+          <div class="jp-q">
+
+            <label class="jp-label" for="fFrecuencia">
+              ¿Con qué frecuencia se realiza?
+            </label>
+
+            <select id="fFrecuencia" class="jp-select">
+
+              <option value="">
+                Selecciona una opción
+              </option>
+
+              <option value="diaria">Diaria</option>
+              <option value="interdiaria">Interdiaria</option>
+              <option value="semanal">Semanal o quincenal</option>
+              <option value="mensual">Mensual</option>
+              <option value="trimestral">Trimestral o menos</option>
+
+            </select>
+
+          </div>
+
+        </div>
+
       </form>
 
     </section>
 
-    <!-- NAVEGACION -->
-    <nav class="jp-nav" id="jpNav">
+    <!-- NAV -->
+    <nav
+      class="jp-nav"
+      id="jpNav"
+      aria-label="Navegación del formulario"
+    >
 
       <button
         type="button"
@@ -281,8 +455,9 @@
 
   </main>
 
-  <!-- JS -->
-  <script src="./04-encuesta-mejora.js"></script>
+  <script src="/04-encuesta-mejora.js"></script>
 
 </body>
 </html>
+
+{% endif %}
