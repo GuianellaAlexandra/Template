@@ -243,62 +243,65 @@
   /* ------------------------------------------------------------------------
      Envío a Dataverse Web API
      ------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------
-   Envío a Power Automate
-   ------------------------------------------------------------------------ */
-async function submitForm() {
+  async function submitForm() {
+    show('sending');
 
-  show('sending');
-
-  try {
+    // Construir herramientas como string CSV (formato Multi-Select Choice de Dataverse)
+    const herramientasCsv = formData.herramientas
+      .map(h => choiceMap.herramientas[h])
+      .filter(v => v !== undefined)
+      .join(',');
 
     const payload = {
-      nombre: formData.nombre,
-      correo: formData.correo,
-      clasificacion: formData.clasificacion,
-      proceso: formData.proceso,
-      alcance: formData.alcance,
-      oportunidad: formData.oportunidad,
-      problematica: formData.problematica,
-      herramientas: formData.herramientas.join(', '),
-      frecuencia: formData.frecuencia,
-      tiempo: formData.tiempo,
-      volumen: formData.volumen,
-      personas: formData.personas,
-      fecha: new Date().toISOString()
+      jp_nombrecolaborador: formData.nombre,
+      jp_correocolaborador: formData.correo,
+      jp_clasificacion: choiceMap.clasificacion[formData.clasificacion],
+      jp_nombreproceso: formData.proceso,
+      jp_alcance: choiceMap.alcance[formData.alcance],
+      jp_oportunidad: formData.oportunidad,
+      jp_problematica: formData.problematica,
+      jp_herramientas: herramientasCsv,
+      jp_frecuencia: choiceMap.frecuencia[formData.frecuencia],
+      jp_tiemporango: choiceMap.tiempo[formData.tiempo],
+      jp_volumenejecuciones: formData.volumen,
+      jp_personasinvolucradas: choiceMap.personas[formData.personas],
+      jp_estado: 100000000  // "Nuevo"
     };
 
-    const response = await fetch(apiEndpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-      throw new Error('HTTP ' + response.status);
-    }
-
-    document.getElementById('jpCode').textContent =
-      'INI-' + Math.floor(Math.random() * 10000);
-
     try {
-      localStorage.removeItem(DRAFT_KEY);
-    } catch (e) {}
+      const response = await fetch(apiEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          '__RequestVerificationToken': antiforgeryToken
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify(payload)
+      });
 
-    show('done');
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error('HTTP ' + response.status + ': ' + errText);
+      }
 
-  } catch (err) {
+      const result = await response.json();
+      const code = result.jp_codigo || 'INI-PENDIENTE';
+      document.getElementById('jpCode').textContent = code;
 
-    console.error(err);
+      // Limpiar borrador al enviar con éxito
+      try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
 
-    document.getElementById('jpErrorMsg').textContent =
-      'No pudimos registrar tu propuesta.';
+      show('done');
 
-    show('error');
+    } catch (err) {
+      console.error('Error al enviar iniciativa:', err);
+      document.getElementById('jpErrorMsg').textContent =
+        'No pudimos registrar tu propuesta. Por favor inténtalo de nuevo en unos minutos. ' +
+        'Si el problema persiste, contacta a mejoracontinua@grupojockey.com.';
+      show('error');
+    }
   }
-}
 
   /* ------------------------------------------------------------------------
      Reset y reintentos
