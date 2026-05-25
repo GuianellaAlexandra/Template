@@ -4,52 +4,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciativas de mejora · Grupo Jockey</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/03-encuesta-mejora.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./03-encuesta-mejora.css">
 </head>
+
 <body>
- 
-  <main class="jp-canvas" id="jpCanvas"
-        data-user-name="{{ user.fullname | escape }}"
-        data-user-email="{{ user.emailaddress1 | escape }}"
-        data-api-endpoint="/_api/jp_iniciativa_mejoras"
-        data-antiforgery-token="{{ antiforgerytoken }}">
- 
-    {% comment %} ===== HEADER ===== {% endcomment %}
+
+  <main
+    class="jp-canvas"
+    id="jpCanvas"
+    data-user-name=""
+    data-user-email=""
+    data-api-endpoint=""
+    data-antiforgery-token=""
+  >
+
+    <!-- HEADER -->
     <header class="jp-topbar">
-      <img src="/grupo-jockey-logo.png" alt="Grupo Jockey" class="jp-logo-img" />
-      <div class="jp-meta">Iniciativas de mejora · Colaboradores</div>
+      <img
+        src="./grupo-jockey-logo.png"
+        alt="Grupo Jockey"
+        class="jp-logo-img"
+      />
+
+      <div class="jp-meta">
+        Iniciativas de mejora · Colaboradores
+      </div>
     </header>
- 
-    {% comment %} ===== TÍTULO ===== {% endcomment %}
+
+    <!-- TITULO -->
     <div class="jp-title-bar">
       <div class="jp-eyebrow">Registro</div>
-      <h1 class="jp-title">Registro de mejora de procesos</h1>
-      <p class="jp-subtitle">Cuéntanos qué proceso quieres optimizar. Te toma ~5 minutos.</p>
+
+      <h1 class="jp-title">
+        Registro de mejora de procesos
+      </h1>
+
+      <p class="jp-subtitle">
+        Cuéntanos qué proceso quieres optimizar. Te toma ~5 minutos.
+      </p>
     </div>
- 
-    {% comment %} ===== STEPPER ===== {% endcomment %}
+
+    <!-- STEPPER -->
     <nav class="jp-stepper" role="tablist" aria-label="Pasos del formulario">
-      <button type="button" class="jp-tab active" data-tab="1" role="tab" aria-selected="true">
+
+      <button
+        type="button"
+        class="jp-tab active"
+        data-tab="1"
+        role="tab"
+        aria-selected="true"
+      >
         <span class="jp-tab-num">Paso 1</span>
         <span class="jp-tab-label">Clasificación</span>
       </button>
-      <button type="button" class="jp-tab" data-tab="2" role="tab" aria-selected="false">
+
+      <button
+        type="button"
+        class="jp-tab"
+        data-tab="2"
+        role="tab"
+        aria-selected="false"
+      >
         <span class="jp-tab-num">Paso 2</span>
         <span class="jp-tab-label">Contexto</span>
       </button>
-      <button type="button" class="jp-tab" data-tab="3" role="tab" aria-selected="false">
+
+      <button
+        type="button"
+        class="jp-tab"
+        data-tab="3"
+        role="tab"
+        aria-selected="false"
+      >
         <span class="jp-tab-num">Paso 3</span>
         <span class="jp-tab-label">Detalle operativo</span>
       </button>
+
     </nav>
- 
-    {% comment %} ===== ESCENARIO ===== {% endcomment %}
+
+    <!-- FORMULARIO -->
     <section class="jp-stage">
- 
+
+      <!-- LINEA DECORATIVA -->
       <svg class="jp-stage-line" viewBox="0 0 480 480" aria-hidden="true">
+
         <defs>
           <linearGradient id="jpGradFinal" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#896EFF"/>
@@ -58,171 +103,186 @@
             <stop offset="100%" stop-color="#00FFE7"/>
           </linearGradient>
         </defs>
-        <path d="M 470 50 C 380 90, 280 30, 250 180 S 320 320, 240 360
-                 C 170 390, 110 300, 180 220 S 290 130, 420 270
-                 C 480 340, 440 440, 360 460"
-              stroke="url(#jpGradFinal)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+        <path
+          d="M 470 50 C 380 90, 280 30, 250 180
+             S 320 320, 240 360
+             C 170 390, 110 300, 180 220
+             S 290 130, 420 270
+             C 480 340, 440 440, 360 460"
+          stroke="url(#jpGradFinal)"
+          stroke-width="2.2"
+          fill="none"
+          stroke-linecap="round"
+        />
+
       </svg>
- 
-      <form class="jp-form" id="jpForm" autocomplete="off" novalidate>
- 
-        {% comment %} ----- PASO 1: CLASIFICACIÓN ----- {% endcomment %}
+
+      <form
+        class="jp-form"
+        id="jpForm"
+        autocomplete="off"
+        novalidate
+      >
+
+        <!-- PASO 1 -->
         <div class="jp-section active" data-section="1">
- 
+
           <div class="jp-q">
-            <label class="jp-label">¿Cómo clasificarías esta iniciativa?</label>
-            <div class="jp-cards" role="radiogroup" aria-label="Clasificación">
-              <button type="button" class="jp-card" data-q="clasificacion" data-val="recurrente">
-                <svg class="jp-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5"/></svg>
-                <span class="jp-card-title">Proceso recurrente</span>
-                <span class="jp-card-desc">Se repite con frecuencia</span>
+
+            <label class="jp-label">
+              ¿Cómo clasificarías esta iniciativa?
+            </label>
+
+            <div class="jp-cards" role="radiogroup">
+
+              <button
+                type="button"
+                class="jp-card"
+                data-q="clasificacion"
+                data-val="recurrente"
+              >
+                <span class="jp-card-title">
+                  Proceso recurrente
+                </span>
+
+                <span class="jp-card-desc">
+                  Se repite con frecuencia
+                </span>
               </button>
-              <button type="button" class="jp-card" data-q="clasificacion" data-val="critico">
-                <svg class="jp-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 22h20L12 2zM12 9v5M12 18h.01"/></svg>
-                <span class="jp-card-title">Proceso crítico</span>
-                <span class="jp-card-desc">Alto impacto en el negocio</span>
+
+              <button
+                type="button"
+                class="jp-card"
+                data-q="clasificacion"
+                data-val="critico"
+              >
+                <span class="jp-card-title">
+                  Proceso crítico
+                </span>
+
+                <span class="jp-card-desc">
+                  Alto impacto en el negocio
+                </span>
               </button>
-              <button type="button" class="jp-card" data-q="clasificacion" data-val="optimizacion">
-                <svg class="jp-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.7.6 1 1.4 1 2.3v1h6v-1c0-.9.3-1.7 1-2.3A7 7 0 0 0 12 2z"/></svg>
-                <span class="jp-card-title">Optimización adicional</span>
-                <span class="jp-card-desc">Oportunidad de mejora</span>
+
+              <button
+                type="button"
+                class="jp-card"
+                data-q="clasificacion"
+                data-val="optimizacion"
+              >
+                <span class="jp-card-title">
+                  Optimización adicional
+                </span>
+
+                <span class="jp-card-desc">
+                  Oportunidad de mejora
+                </span>
               </button>
+
             </div>
+
           </div>
- 
+
           <div class="jp-q">
-            <label class="jp-label" for="fProceso">Nombre del proceso</label>
-            <input type="text" id="fProceso" class="jp-input" placeholder="Ej. Cierre de caja de estacionamientos" maxlength="200" />
+
+            <label class="jp-label" for="fProceso">
+              Nombre del proceso
+            </label>
+
+            <input
+              type="text"
+              id="fProceso"
+              class="jp-input"
+              placeholder="Ej. Cierre de caja de estacionamientos"
+              maxlength="200"
+            />
+
           </div>
- 
+
           <div class="jp-q">
-            <label class="jp-label">¿Cuál es el alcance de este proceso o problemática?</label>
-            <div class="jp-chips" role="radiogroup" aria-label="Alcance">
-              <button type="button" class="jp-chip" data-q="alcance" data-val="solo"><span class="jp-chip-ico" aria-hidden="true">◦</span> Solo mi trabajo</button>
-              <button type="button" class="jp-chip" data-q="alcance" data-val="equipo"><span class="jp-chip-ico" aria-hidden="true">◇</span> Mi equipo</button>
-              <button type="button" class="jp-chip" data-q="alcance" data-val="varias"><span class="jp-chip-ico" aria-hidden="true">▦</span> Varias áreas</button>
+
+            <label class="jp-label">
+              ¿Cuál es el alcance de este proceso o problemática?
+            </label>
+
+            <div class="jp-chips">
+
+              <button
+                type="button"
+                class="jp-chip"
+                data-q="alcance"
+                data-val="solo"
+              >
+                Solo mi trabajo
+              </button>
+
+              <button
+                type="button"
+                class="jp-chip"
+                data-q="alcance"
+                data-val="equipo"
+              >
+                Mi equipo
+              </button>
+
+              <button
+                type="button"
+                class="jp-chip"
+                data-q="alcance"
+                data-val="varias"
+              >
+                Varias áreas
+              </button>
+
             </div>
+
           </div>
- 
+
         </div>
- 
-        {% comment %} ----- PASO 2: CONTEXTO ----- {% endcomment %}
-        <div class="jp-section" data-section="2">
- 
-          <div class="jp-q">
-            <label class="jp-label" for="fOportunidad">Menciona la oportunidad de mejora</label>
-            <input type="text" id="fOportunidad" class="jp-input" placeholder="En una frase, qué se podría mejorar" maxlength="300" />
-          </div>
- 
-          <div class="jp-q">
-            <label class="jp-label" for="fProblematica">Cuéntanos detalladamente la problemática que has identificado</label>
-            <textarea id="fProblematica" class="jp-textarea" placeholder="Ej. El proceso requiere 3 aprobadores distintos vía email, lo cual genera demoras de hasta 5 días y pérdida de trazabilidad." maxlength="2000"></textarea>
-          </div>
- 
-          <div class="jp-q">
-            <label class="jp-label">Herramientas que se utilizan actualmente</label>
-            <p class="jp-label-help">Selecciona todas las que apliquen.</p>
-            <div class="jp-chips" style="margin-top: 10px;" role="group" aria-label="Herramientas utilizadas">
-              <button type="button" class="jp-chip" data-multi="herramientas" data-val="outlook"><span class="jp-chip-ico" aria-hidden="true">✉</span> Outlook</button>
-              <button type="button" class="jp-chip" data-multi="herramientas" data-val="excel"><span class="jp-chip-ico" aria-hidden="true">▦</span> Excel</button>
-              <button type="button" class="jp-chip" data-multi="herramientas" data-val="teams"><span class="jp-chip-ico" aria-hidden="true">◧</span> Teams</button>
-              <button type="button" class="jp-chip" data-multi="herramientas" data-val="sap"><span class="jp-chip-ico" aria-hidden="true">⬢</span> SAP</button>
-              <button type="button" class="jp-chip" data-multi="herramientas" data-val="sharepoint"><span class="jp-chip-ico" aria-hidden="true">▤</span> SharePoint</button>
-              <button type="button" class="jp-chip" data-multi="herramientas" data-val="papel"><span class="jp-chip-ico" aria-hidden="true">▢</span> Papel/Físico</button>
-              <button type="button" class="jp-chip" data-multi="herramientas" data-val="otra"><span class="jp-chip-ico" aria-hidden="true">+</span> Otra</button>
-            </div>
-          </div>
- 
-        </div>
- 
-        {% comment %} ----- PASO 3: DETALLE OPERATIVO ----- {% endcomment %}
-        <div class="jp-section" data-section="3">
- 
-          <div class="jp-q">
-            <label class="jp-label" for="fFrecuencia">¿Con qué frecuencia se realiza?</label>
-            <select id="fFrecuencia" class="jp-select">
-              <option value="">Selecciona una opción</option>
-              <option value="diaria">Diaria</option>
-              <option value="interdiaria">Interdiaria</option>
-              <option value="semanal">Semanal o quincenal</option>
-              <option value="mensual">Mensual</option>
-              <option value="trimestral">Trimestral o menos</option>
-            </select>
-          </div>
- 
-          <div class="jp-q">
-            <label class="jp-label">¿Cuánto tiempo requiere el proceso?</label>
-            <div class="jp-chips" role="radiogroup" aria-label="Tiempo">
-              <button type="button" class="jp-chip" data-q="tiempo" data-val="menos1h">&lt; 1 hora/día</button>
-              <button type="button" class="jp-chip" data-q="tiempo" data-val="1a3h">1–3 horas/día</button>
-              <button type="button" class="jp-chip" data-q="tiempo" data-val="3a6h">3–6 horas/día</button>
-              <button type="button" class="jp-chip" data-q="tiempo" data-val="mas6h">&gt; 6 horas/día</button>
-            </div>
-          </div>
- 
-          <div class="jp-row">
-            <div class="jp-q">
-              <label class="jp-label" for="fVolumen">¿Cuántas veces se ejecuta?</label>
-              <input type="number" id="fVolumen" class="jp-input" placeholder="Ej. 25" min="0" max="999999" />
-              <p class="jp-label-help">En el período de frecuencia seleccionado.</p>
-            </div>
-            <div class="jp-q">
-              <label class="jp-label" for="fPersonas">Personas que lo realizan</label>
-              <select id="fPersonas" class="jp-select">
-                <option value="">Selecciona una opción</option>
-                <option value="solo">Solo yo</option>
-                <option value="1a3">De 1 a 3 colaboradores</option>
-                <option value="masde3">Más de 3 colaboradores</option>
-              </select>
-            </div>
-          </div>
- 
-        </div>
- 
-        {% comment %} ----- ENVIANDO ----- {% endcomment %}
-        <div class="jp-section" data-section="sending">
-          <div class="jp-done">
-            <div class="jp-done-eyebrow">Enviando</div>
-            <h2 class="jp-done-title">Estamos registrando tu propuesta…</h2>
-            <div class="jp-spinner" aria-label="Cargando"></div>
-          </div>
-        </div>
- 
-        {% comment %} ----- HECHO ----- {% endcomment %}
-        <div class="jp-section" data-section="done">
-          <div class="jp-done">
-            <div class="jp-done-eyebrow">Recibido</div>
-            <h2 class="jp-done-title">Gracias por hacer Grupo Jockey mejor.</h2>
-            <p class="jp-done-body">Tu iniciativa quedó registrada con el código <span class="jp-code" id="jpCode">INI-0000</span>. El equipo de mejora continua la revisará y te contactará si necesita más detalle.</p>
-            <button type="button" class="jp-btn" id="jpRestart">Registrar otra iniciativa →</button>
-          </div>
-        </div>
- 
-        {% comment %} ----- ERROR ----- {% endcomment %}
-        <div class="jp-section" data-section="error">
-          <div class="jp-done">
-            <div class="jp-done-eyebrow jp-error">Algo salió mal</div>
-            <h2 class="jp-done-title">No pudimos registrar tu propuesta.</h2>
-            <p class="jp-done-body" id="jpErrorMsg">Por favor inténtalo de nuevo en unos minutos. Si el problema persiste, contacta a mejoracontinua@grupojockey.com.</p>
-            <button type="button" class="jp-btn" id="jpRetry">Intentar de nuevo →</button>
-          </div>
-        </div>
- 
+
       </form>
- 
+
     </section>
- 
-    {% comment %} ===== NAVEGACIÓN ===== {% endcomment %}
-    <nav class="jp-nav" id="jpNav" aria-label="Navegación del formulario">
-      <button type="button" class="jp-btn jp-btn-ghost" id="jpBack">← Anterior</button>
+
+    <!-- NAVEGACION -->
+    <nav class="jp-nav" id="jpNav">
+
+      <button
+        type="button"
+        class="jp-btn jp-btn-ghost"
+        id="jpBack"
+      >
+        ← Anterior
+      </button>
+
       <div class="jp-nav-right">
-        <button type="button" class="jp-btn jp-btn-ghost" id="jpDraft">Guardar borrador</button>
-        <button type="button" class="jp-btn" id="jpNext">Siguiente →</button>
+
+        <button
+          type="button"
+          class="jp-btn jp-btn-ghost"
+          id="jpDraft"
+        >
+          Guardar borrador
+        </button>
+
+        <button
+          type="button"
+          class="jp-btn"
+          id="jpNext"
+        >
+          Siguiente →
+        </button>
+
       </div>
+
     </nav>
- 
+
   </main>
- 
-  <script src="/04-encuesta-mejora.js"></script>
+
+  <!-- JS -->
+  <script src="./04-encuesta-mejora.js"></script>
+
 </body>
 </html>
