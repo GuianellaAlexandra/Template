@@ -1,15 +1,6 @@
-{% comment %}
 ==========================================================================
 ENCUESTA DE INICIATIVAS DE MEJORA — GRUPO JOCKEY
 ==========================================================================
-{% endcomment %}
-
-{% if user == null %}
-  <script>
-    window.location.href = "/SignIn?returnUrl=" + encodeURIComponent(window.location.pathname);
-  </script>
-{% else %}
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -459,5 +450,3 @@ ENCUESTA DE INICIATIVAS DE MEJORA — GRUPO JOCKEY
 
 </body>
 </html>
-
-{% endif %}
