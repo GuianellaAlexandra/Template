@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciativas de mejora · Grupo Jockey</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="./encuesta-mejora.css" />
+</head>
+
+<body>
+
+  <main
+    class="jp-canvas"
+    id="jpCanvas"
+    data-user-name=""
+    data-user-email=""
+    data-api-endpoint=""
+    data-antiforgery-token=""
+  >
+
+    <!-- HEADER -->
+    <header class="jp-topbar">
+      <img
+        src="./grupo-jockey-logo.png"
+        alt="Grupo Jockey"
+        class="jp-logo-img"
+      />
+      <div class="jp-meta">
+        Iniciativas de mejora · Colaboradores
+      </div>
+    </header>
+
+    <!-- TITULO -->
+    <div class="jp-title-bar">
+      <div class="jp-eyebrow">Registro</div>
+
+      <h1 class="jp-title">
+        Registro de mejora de procesos
+      </h1>
+
+      <p class="jp-subtitle">
+        Cuéntanos qué proceso quieres optimizar.
+        Te toma ~5 minutos.
+      </p>
+    </div>
+
+    <!-- STEPPER -->
+    <nav
+      class="jp-stepper"
+      role="tablist"
+      aria-label="Pasos del formulario"
+    >
+
+      <button
+        type="button"
+        class="jp-tab active"
+        data-tab="1"
+      >
+        <span class="jp-tab-num">Paso 1</span>
+        <span class="jp-tab-label">Clasificación</span>
+      </button>
+
+      <button
+        type="button"
+        class="jp-tab"
+        data-tab="2"
+      >
+        <span class="jp-tab-num">Paso 2</span>
+        <span class="jp-tab-label">Contexto</span>
+      </button>
+
+      <button
+        type="button"
+        class="jp-tab"
+        data-tab="3"
+      >
+        <span class="jp-tab-num">Paso 3</span>
+        <span class="jp-tab-label">Detalle operativo</span>
+      </button>
+
+    </nav>
+
+    <!-- FORM -->
+    <section class="jp-stage">
+
+      <form
+        class="jp-form"
+        id="jpForm"
+        autocomplete="off"
+        novalidate
+      >
+
+        <!-- PASO 1 -->
+        <div class="jp-section active" data-section="1">
+
+          <div class="jp-q">
+
+            <label class="jp-label">
+              ¿Cómo clasificarías esta iniciativa?
+            </label>
+
+            <div
+              class="jp-cards"
+              role="radiogroup"
+            >
+
+              <button
+                type="button"
+                class="jp-card"
+                data-q="clasificacion"
+                data-val="recurrente"
+              >
+                <span class="jp-card-title">
+                  Proceso recurrente
+                </span>
+
+                <span class="jp-card-desc">
+                  Se repite con frecuencia
+                </span>
+              </button>
+
+              <button
+                type="button"
+                class="jp-card"
+                data-q="clasificacion"
+                data-val="critico"
+              >
+                <span class="jp-card-title">
+                  Proceso crítico
+                </span>
+
+                <span class="jp-card-desc">
+                  Alto impacto en el negocio
+                </span>
+              </button>
+
+              <button
+                type="button"
+                class="jp-card"
+                data-q="clasificacion"
+                data-val="optimizacion"
+              >
+                <span class="jp-card-title">
+                  Optimización adicional
+                </span>
+
+                <span class="jp-card-desc">
+                  Oportunidad de mejora
+                </span>
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="jp-q">
+
+            <label
+              class="jp-label"
+              for="fProceso"
+            >
+              Nombre del proceso
+            </label>
+
+            <input
+              type="text"
+              id="fProceso"
+              class="jp-input"
+              placeholder="Ej. Cierre de caja"
+              maxlength="200"
+            />
+
+          </div>
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </main>
+
+  <script src="./encuesta-mejora.js"></script>
+
+</body>
+</html>
